@@ -1,0 +1,5 @@
+defaults:
+  - db: mysql  # db/mysql.yaml을 가져다 써라...
+  - test  # test.yaml을 가져다가 쓰자.
+website:
+    domain: example.com

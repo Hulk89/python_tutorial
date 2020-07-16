@@ -1,0 +1,4 @@
+# @package _group_
+cls: modules.b.B
+params:
+    value: ${string}

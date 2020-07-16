@@ -1,0 +1,4 @@
+# @package _group_
+# _global_이든 _group_이든 같은 결과를 낸다.
+it_must_not_be_grouped: True
+test_key: 123

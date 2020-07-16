@@ -1,0 +1,4 @@
+# @package _group_
+driver: postgres
+user: hulk
+passwd: 1234

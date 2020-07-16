@@ -1,0 +1,4 @@
+# @package _group_
+cls: modules.a.A
+params:
+    layer: ${child_module}
