@@ -2,5 +2,5 @@ class A:
     def __init__(self, layer):
         self.layer = layer
 
-    def print(self):
-        print("A has {}".format(self.layer))
+    def __str__(self):
+        return "A has ({})".format(self.layer)

@@ -1,22 +1,21 @@
 import hydra
-from omegaconf import DictConfig
+from omegaconf import DictConfig, OmegaConf
 
-def instantiate(conf):
+def instantiate(conf, *args, **kwargs):
     if hasattr(conf, "params"):
-        dict_ = {}
-        for key, sub_conf in conf.params.items():
-            if isinstance(sub_conf, DictConfig):
-                if 'cls' in sub_conf:
-                    dict_[key] = instantiate(sub_conf)
-    return hydra.utils.instantiate(conf, **dict_)
+        if 'args' in conf.params:
+            args = list(args) + [instantiate(i) for i in conf.params.args]
+            primitive_conf = OmegaConf.to_container(conf, resolve=True)
+            del primitive_conf['params']['args']
+            conf = DictConfig(primitive_conf)
+    return hydra.utils.instantiate(conf, *args, **kwargs)
 
 
 @hydra.main(config_path='conf', config_name='config')
 def my_app(cfg : DictConfig) -> None:
     print(cfg.pretty())
     obj = instantiate(cfg.parent_module)
-    obj.print()
-    print(obj.layer)
+    print(obj)
 
 if __name__ == "__main__":
     my_app()

@@ -2,4 +2,4 @@
 target: modules.a.A
 params:
     args:
-        - ${child_module}
+        - ${grand_child_module}
