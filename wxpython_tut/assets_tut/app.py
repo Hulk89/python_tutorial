@@ -1,4 +1,4 @@
-import wx # Create a new app, don't redirect stdout/stderr to a window.
+import wx
 
 import os
 import sys
@@ -10,9 +10,14 @@ def resource_path(relative_path):
 if __name__ == '__main__':
     app = wx.App(False) # A Frame is a top-level window.
     
-    frame = wx.Frame(None, wx.ID_ANY, "Hello Python") # Show the frame.
+    if hasattr(sys, '_MEIPASS'):
+        title = "app has path: {}".format(sys._MEIPASS)
+    else:
+        title = "Hello Python"
+    frame = wx.Frame(None, wx.ID_ANY, title) # Show the frame.
     frame.Show(True)
 
     img = wx.Image(resource_path('assets/save.png'), wx.BITMAP_TYPE_PNG)
     bmp = wx.StaticBitmap(parent=frame, bitmap=img.ConvertToBitmap())
+
     app.MainLoop()
