@@ -1,5 +1,4 @@
 # @package _group_
-target: modules.a.A
-params:
-    args:
-        - ${child_module}
+_target_: modules.a.A
+__args:
+    - ${child_module}
