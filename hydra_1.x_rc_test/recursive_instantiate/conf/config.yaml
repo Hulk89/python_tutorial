@@ -1,5 +1,4 @@
 string: "hello hydra"
 defaults:
-    - grand_child_module: module_b
-    - child_module: module_a
     - parent_module: module_a
+    - child_module: module_b

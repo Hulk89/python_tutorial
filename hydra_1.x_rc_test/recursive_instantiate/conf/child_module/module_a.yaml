@@ -1,5 +1,0 @@
-# @package _group_
-target: modules.a.A
-params:
-    args:
-        - ${grand_child_module}

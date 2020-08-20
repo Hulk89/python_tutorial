@@ -1,4 +1,4 @@
 # @package _group_
 target: modules.b.B
 params:
-    value: ${string}
+    value: 10

@@ -2,6 +2,10 @@ import hydra
 from omegaconf import DictConfig, OmegaConf
 
 def instantiate(conf, *args, **kwargs):
+    """recursive instantiate를 지원하는 함수.
+        primitive type이 아닌 object들은 
+        args에 List로 positional argument를 넣어주어야한다.
+    """
     if hasattr(conf, "params"):
         if 'args' in conf.params:
             args = list(args) + [instantiate(i) for i in conf.params.args]
