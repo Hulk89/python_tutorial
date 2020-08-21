@@ -6,6 +6,7 @@ class MainApp(gui.MainFrame):
         super().__init__(parent)
 
         self.panels = [Panel1(self)]
+
     def Show(self, *args, **kwargs):
         super().Show(*args, **kwargs)
         self.panels[-1].Show()
