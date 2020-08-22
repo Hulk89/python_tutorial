@@ -12,7 +12,11 @@ class SVG():
         self.image_size = 500
         self.d = draw.Drawing(2, 2, origin='center')
         self.d.setRenderSize(self.image_size)
-        self.d.append(draw.Circle(0, 0, 1, fill='orange'))
+        #self.d.append(draw.Circle(0, 0, 1, fill='orange'))
+        image = draw.Image(-1, -1, 2, 2, path='./image.png')
+
+        self.d.append(image)
+
         group = draw.Group()
         self.d.append(group)
 
@@ -52,13 +56,14 @@ class MyFrame(wx.Frame):
         image_buffer = io.StringIO()
         self.svg.d.asSvg(outputFile=image_buffer)
         image_buffer.seek(0)
+
         self.img = SVGimage.CreateFromBytes(
                 str.encode(image_buffer.getvalue()))
 
     def on_paint(self, event):
         self.refresh_img()
         dc = wx.PaintDC(self)
-        dc.SetBackground(wx.Brush('white'))
+        #dc.SetBackground(wx.Brush('white'))
         dc.Clear()
 
         width = int(self.img.width * self.scale)
