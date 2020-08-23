@@ -10,12 +10,9 @@ class SVG():
     def __init__(self):
         # Create drawing
         self.image_size = 500
-        self.d = draw.Drawing(2, 2, origin='center')
+        self.d = draw.Drawing(2, 2, origin='center')  # viewbox(-1, -1, 2, 2)
         self.d.setRenderSize(self.image_size)
-        #self.d.append(draw.Circle(0, 0, 1, fill='orange'))
-        image = draw.Image(-1, -1, 2, 2, path='./image.png')
-
-        self.d.append(image)
+        self.d.append(draw.Circle(0, 0, 1, fill='orange'))
 
         group = draw.Group()
         self.d.append(group)
@@ -23,8 +20,6 @@ class SVG():
     def draw(self, points):
         group = self.d.elements[-1] ##GG
         group.children.clear()
-        points = [(p[0] / (self.image_size / 2),
-                   p[1] / (self.image_size / 2)) for p in points]
 
         for x1, y1 in points:
             for x2, y2 in points:
@@ -63,7 +58,7 @@ class MyFrame(wx.Frame):
     def on_paint(self, event):
         self.refresh_img()
         dc = wx.PaintDC(self)
-        #dc.SetBackground(wx.Brush('white'))
+        dc.SetBackground(wx.Brush('white'))
         dc.Clear()
 
         width = int(self.img.width * self.scale)
@@ -81,10 +76,10 @@ class MyFrame(wx.Frame):
 
     def on_move(self, event):
         x, y = event.GetPosition()
-        ## TODO: position validation check
-        ## TODO: position to svg points
         pos = (x / self.scale - self.svg.image_size/2,
                 self.svg.image_size/2 - y / self.scale)
+        pos = tuple(p / (self.svg.image_size / 2) for p in pos)
+
         self.svg.draw(self.points + [pos])
         self.Refresh()
         
@@ -93,6 +88,7 @@ class MyFrame(wx.Frame):
         x, y = event.GetPosition()
         pos = (x / self.scale - self.svg.image_size/2,
                self.svg.image_size/2 - y / self.scale)
+        pos = tuple(p / (self.svg.image_size / 2) for p in pos)
         self.points.append(pos)
         self.svg.draw(self.points)
         self.Refresh()
