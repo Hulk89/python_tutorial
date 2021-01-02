@@ -1,0 +1,25 @@
+/* https://developers.google.com/protocol-buffers/docs/overview */
+
+syntax = "proto3";
+
+option objc_class_prefix = "RTG";
+
+service SendService {
+    rpc SendMessage(Mail) returns (MailResult);
+}
+
+message MailResult {
+    repeated string content = 1;
+}
+
+message Mail {
+    string content = 1;
+    Person _from = 2;
+    repeated Person _to = 3;
+}
+
+message Person {
+    string name = 1;
+    int32 age = 2;
+    int32 weight = 3;
+}
